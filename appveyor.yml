@@ -21,8 +21,8 @@ artifacts:
 deploy:
   release: Lua 5.3.5
   provider: GitHub
-  artifact: build\*.zip
   draft: true
+  force_update: true
   auth_token:
     secure: mqLDd9ouwepeyhnE8og1Q/bbB4NPcKI37t/vZN4ZFS6Sj4yT6KlHiBKAs+EmbNoR
   #tag: $(APPVEYOR_REPO_TAG_NAME) # will not work until tag is pushed
