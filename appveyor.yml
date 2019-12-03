@@ -7,23 +7,14 @@ build_script:
 - cmd: >-
     cd c:\lua-msvc
 
-
     appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
 
+    FOR /F "tokens=* USEBACKQ" %%F IN (`vswhere.exe -property catalog_productLineVersion -all`) DO ( SET VS_VERSION=%%F )
+    for /l %%a in (1,1,128) do if "!VS_VERSION:~-1!"==" " set VS_VERSION=!VS_VERSION:~0,-1!
 
     build.bat 5.3.5 x86
 
     build.bat 5.3.5 x64
-
-
-    mv build\lua-5.3.5-vs2019-x64 %APPVEYOR_BUILD_FOLDER%\
-
-environment:
-  matrix:
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-    VS_VERSION: vs2019
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-    VS_VERSION: vs2017
 
 artifacts:
   - path: build/lua-5.3.5-$(VS_VERSION)-x86
