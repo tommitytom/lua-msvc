@@ -14,8 +14,6 @@ for /l %%a in (1,1,128) do if "!VSPATH:~-1!"==" " set VSPATH=!VSPATH:~0,-1!
 FOR /F "tokens=* USEBACKQ" %%F IN (`vswhere.exe -property catalog_productLineVersion -all`) DO ( SET VSVER=%%F )
 for /l %%a in (1,1,128) do if "!VSVER:~-1!"==" " set VSVER=!VSVER:~0,-1!
 
-set VS_VERSION=VSVER
-
 call "%VSPATH%\VC\Auxiliary\Build\vcvars%BITS%.bat"
 
 set LUA_NAME=lua-%1
