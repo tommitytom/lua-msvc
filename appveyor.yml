@@ -12,7 +12,7 @@ build_script:
     build.bat 5.3.5 x64
 
 artifacts:
-  - path: build/lua-5.3.5-$(VSVER)-x86
-    name: lua-5.3.5-$(VSVER)-x86
-  - path: build/lua-5.3.5-$(VSVER)-x64
-    name: lua-5.3.5-$(VSVER)-x64
+  - path: build/lua-5.3.5-$(VS_VERSION)-x86
+    name: lua-5.3.5-$(VS_VERSION)-x86
+  - path: build/lua-5.3.5-$(VS_VERSION)-x64
+    name: lua-5.3.5-$(VS_VERSION)-x64
