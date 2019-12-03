@@ -5,30 +5,23 @@ image:
 clone_folder: c:\lua-msvc
 install:
   - appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
-  - appveyor DownloadFile https://www.lua.org/ftp/lua-5.3.5.tar.gz
-  - tar zxvf lua-5.3.5.tar.gz
+  - appveyor DownloadFile https://www.lua.org/ftp/lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
+  - tar zxvf lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
 build_script:
 - cmd: >-
     vsver.bat
-
-    build.bat 5.3.5 x86
-
-    build.bat 5.3.5 x64
-
+    build.bat $(APPVEYOR_REPO_TAG_NAME) x86
+    build.bat $(APPVEYOR_REPO_TAG_NAME) x64
 artifacts:
-  - path: build/lua-5.3.5-vs$(VS_VERSION)-x86
-    name: lua-5.3.5-vs$(VS_VERSION)-x86
-  - path: build/lua-5.3.5-vs$(VS_VERSION)-x64
-    name: lua-5.3.5-vs$(VS_VERSION)-x64
+  - path: build/lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x86
+    name: lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x86
+  - path: build/lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x64
+    name: lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x64
 deploy:
-  release: Lua 5.3.5
+  release: Lua $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
-  draft: true
   force_update: true
   auth_token:
     secure: mqLDd9ouwepeyhnE8og1Q/bbB4NPcKI37t/vZN4ZFS6Sj4yT6KlHiBKAs+EmbNoR
-  #tag: $(APPVEYOR_REPO_TAG_NAME) # will not work until tag is pushed
-  #on:
-#   APPVEYOR_REPO_TAG: true   # deploy on tag push only
-    #configuration: Release    # Debug contains non-redist MS DLLs
-#   branch: master   # release from master branch only
+  on:
+    APPVEYOR_REPO_TAG: true
