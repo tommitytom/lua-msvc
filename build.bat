@@ -2,8 +2,10 @@
 
 set START_PATH=%cd%
 set VERSION=%1
+set ARCH=%2
+
 set LUA_NAME=lua-%1
-set BUILD_DIR=build\lua-%1
+set BUILD_DIR=build\lua-%1-%ARCH%
 
 if not exist build mkdir build
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
