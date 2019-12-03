@@ -7,6 +7,8 @@ build_script:
 - cmd: >-
     appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
 
+    vsver.bat
+
     build.bat 5.3.5 x86
 
     build.bat 5.3.5 x64
