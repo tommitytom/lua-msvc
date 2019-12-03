@@ -5,9 +5,9 @@ image:
 - Visual Studio 2019
 clone_folder: c:\lua-msvc
 install:
-  - appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
-  - appveyor DownloadFile https://www.lua.org/ftp/lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
-  - tar zxvf lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
+  - cmd: appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
+  - cmd: appveyor DownloadFile https://www.lua.org/ftp/lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
+  - cmd: tar zxvf lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
 build_script:
 - cmd: >-
     vsver.bat
