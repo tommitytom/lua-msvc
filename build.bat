@@ -24,7 +24,7 @@ if not exist %BUILD_DIR% mkdir %BUILD_DIR%
 del /Q %BUILD_DIR%
 cd %BUILD_DIR%
 
-cl /MD /O2 /c /DLUA_BUILD_AS_DLL ..\..\%LUA_NAME%\src\*.c
+cl /MD /MP /O2 /c /DLUA_BUILD_AS_DLL ..\..\%LUA_NAME%\src\*.c
 ren lua.obj lua.o
 ren luac.obj luac.o
 link /DLL /IMPLIB:%LUA_NAME%.lib /OUT:%LUA_NAME%.dll *.obj
