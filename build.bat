@@ -14,7 +14,7 @@ for /l %%a in (1,1,128) do if "!VS_PATH:~-1!"==" " set VS_PATH=!VS_PATH:~0,-1!
 call "%VS_PATH%\VC\Auxiliary\Build\vcvars%BITS%.bat"
 
 set LUA_NAME=lua-%1
-set BUILD_DIR=build\lua-%1-vs%VSVER%-%ARCH%
+set BUILD_DIR=build\lua-%1-vs%VS_VERSION%-%ARCH%
 
 if not exist build mkdir build
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
