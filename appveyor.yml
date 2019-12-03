@@ -1,28 +1,28 @@
 version: 1.0.{build}
-skip_non_tags: true
+branches:
+  except:
+    - master
 image:
 - Visual Studio 2017
 - Visual Studio 2019
 clone_folder: c:\lua-msvc
 install:
   - cmd: appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
-  - cmd: appveyor DownloadFile https://www.lua.org/ftp/lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
-  - cmd: tar zxvf lua-$(APPVEYOR_REPO_TAG_NAME).tar.gz
+  - cmd: appveyor DownloadFile https://www.lua.org/ftp/lua-%APPVEYOR_REPO_BRANCH%.tar.gz
+  - cmd: tar zxvf lua-%APPVEYOR_REPO_BRANCH%.tar.gz
 build_script:
 - cmd: >-
     vsver.bat
-    build.bat $(APPVEYOR_REPO_TAG_NAME) x86
-    build.bat $(APPVEYOR_REPO_TAG_NAME) x64
+    build.bat %APPVEYOR_REPO_BRANCH% x86
+    build.bat %APPVEYOR_REPO_BRANCH% x64
 artifacts:
-  - path: build/lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x86
-    name: lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x86
-  - path: build/lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x64
-    name: lua-$(APPVEYOR_REPO_TAG_NAME)-vs$(VS_VERSION)-x64
+  - path: build/lua-%APPVEYOR_REPO_BRANCH%-vs$(VS_VERSION)-x86
+    name: lua-%APPVEYOR_REPO_BRANCH%-vs$(VS_VERSION)-x86
+  - path: build/lua-%APPVEYOR_REPO_BRANCH%-vs$(VS_VERSION)-x64
+    name: lua-%APPVEYOR_REPO_BRANCH%-vs$(VS_VERSION)-x64
 deploy:
-  release: Lua $(APPVEYOR_REPO_TAG_NAME)
+  release: Lua %APPVEYOR_REPO_BRANCH%
   provider: GitHub
   force_update: true
   auth_token:
     secure: mqLDd9ouwepeyhnE8og1Q/bbB4NPcKI37t/vZN4ZFS6Sj4yT6KlHiBKAs+EmbNoR
-  on:
-    APPVEYOR_REPO_TAG: true
