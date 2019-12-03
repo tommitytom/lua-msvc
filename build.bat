@@ -1,23 +1,26 @@
 @echo off
 
 set START_PATH=%cd%
+set VERSION=%1
+set LUA_NAME=lua-%1
+set BUILD_DIR=build\lua-%1
 
 if not exist build mkdir build
-del /Q build\%1
-if not exist build\%1 mkdir build\%1
-cd build\%1
+if not exist %BUILD_DIR% mkdir %BUILD_DIR%
+del /Q %BUILD_DIR%
+cd %BUILD_DIR%
 
-cl /MD /O2 /c /DLUA_BUILD_AS_DLL ..\..\%1\src\*.c
+cl /MD /O2 /c /DLUA_BUILD_AS_DLL ..\..\%LUA_NAME%\src\*.c
 ren lua.obj lua.o
 ren luac.obj luac.o
-link /DLL /IMPLIB:%1.lib /OUT:%1.dll *.obj 
-link /OUT:%1.exe lua.o %1.lib 
-lib /OUT:%1-static.lib *.obj
-link /OUT:luac.exe luac.o %1-static.lib
+link /DLL /IMPLIB:%LUA_NAME%.lib /OUT:%LUA_NAME%.dll *.obj
+link /OUT:%LUA_NAME%.exe lua.o %LUA_NAME%.lib
+lib /OUT:%LUA_NAME%-static.lib *.obj
+link /OUT:luac-%VERSION%.exe luac.o %LUA_NAME%-static.lib
 
 del *.obj
 del *.o
 del *.exp
-del luac.lib
+del luac-%VERSION%.lib
 
 cd %START_PATH%
