@@ -10,10 +10,14 @@ if "%ARCH%"=="x64" set BITS=64
 
 FOR /F "tokens=* USEBACKQ" %%F IN (`vswhere.exe -property installationPath -all`) DO ( SET VSPATH=%%F )
 for /l %%a in (1,1,128) do if "!VSPATH:~-1!"==" " set VSPATH=!VSPATH:~0,-1!
+
+FOR /F "tokens=* USEBACKQ" %%F IN (`vswhere.exe -property catalog_productLineVersion -all`) DO ( SET VSVER=%%F )
+for /l %%a in (1,1,128) do if "!VSVER:~-1!"==" " set VSVER=!VSVER:~0,-1!
+
 call "%VSPATH%\VC\Auxiliary\Build\vcvars%BITS%.bat"
 
 set LUA_NAME=lua-%1
-set BUILD_DIR=build\lua-%1-%ARCH%
+set BUILD_DIR=build\lua-%1-vc%VSVER%-%ARCH%
 
 if not exist build mkdir build
 if not exist %BUILD_DIR% mkdir %BUILD_DIR%
