@@ -18,3 +18,13 @@ artifacts:
     name: lua-5.3.5-vs$(VS_VERSION)-x86
   - path: build/lua-5.3.5-vs$(VS_VERSION)-x64
     name: lua-5.3.5-vs$(VS_VERSION)-x64
+deploy:
+  release: Lua 5.3.5
+  provider: GitHub
+  artifact: *
+  draft: true
+  #tag: $(APPVEYOR_REPO_TAG_NAME) # will not work until tag is pushed
+  #on:
+#   APPVEYOR_REPO_TAG: true   # deploy on tag push only
+    #configuration: Release    # Debug contains non-redist MS DLLs
+#   branch: master   # release from master branch only
