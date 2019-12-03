@@ -23,6 +23,8 @@ deploy:
   provider: GitHub
   artifact: lua*.zip
   draft: true
+  auth_token:
+    secure: mqLDd9ouwepeyhnE8og1Q/bbB4NPcKI37t/vZN4ZFS6Sj4yT6KlHiBKAs+EmbNoR
   #tag: $(APPVEYOR_REPO_TAG_NAME) # will not work until tag is pushed
   #on:
 #   APPVEYOR_REPO_TAG: true   # deploy on tag push only
