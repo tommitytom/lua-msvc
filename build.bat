@@ -1,5 +1,4 @@
 @echo off
-setlocal ENABLEDELAYEDEXPANSION
 
 set START_PATH=%cd%
 set VERSION=%1
@@ -8,13 +7,13 @@ set BITS=32
 
 if "%ARCH%"=="x64" set BITS=64
 
-FOR /F "tokens=* USEBACKQ" %%F IN (`vswhere.exe -property installationPath -all`) DO ( SET VSPATH=%%F )
-for /l %%a in (1,1,128) do if "!VSPATH:~-1!"==" " set VSPATH=!VSPATH:~0,-1!
+FOR /F "tokens=* USEBACKQ" %%F IN (`vswhere.exe -property installationPath -all`) DO ( SET VS_PATH=%%F )
+CALL :TRIM %VS_VERSION% VS_VERSION
 
-FOR /F "tokens=* USEBACKQ" %%F IN (`vswhere.exe -property catalog_productLineVersion -all`) DO ( SET VSVER=%%F )
-for /l %%a in (1,1,128) do if "!VSVER:~-1!"==" " set VSVER=!VSVER:~0,-1!
+FOR /F "tokens=1 USEBACKQ" %%F IN (`vswhere.exe -property catalog_productLineVersion -all`) DO ( SET VS_VERSION=%%F )
+CALL :TRIM %VS_VERSION% VS_VERSION
 
-call "%VSPATH%\VC\Auxiliary\Build\vcvars%BITS%.bat"
+call "%VS_PATH%\VC\Auxiliary\Build\vcvars%BITS%.bat"
 
 set LUA_NAME=lua-%1
 set BUILD_DIR=build\lua-%1-vs%VSVER%-%ARCH%
@@ -38,3 +37,8 @@ del *.exp
 del luac-%VERSION%.lib
 
 cd %START_PATH%
+GOTO :EOF
+
+:TRIM
+SET %2=%1
+GOTO :EOF
