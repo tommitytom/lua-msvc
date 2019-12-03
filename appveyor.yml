@@ -21,7 +21,7 @@ artifacts:
 deploy:
   release: Lua 5.3.5
   provider: GitHub
-  artifact: *
+  artifact: lua*.zip
   draft: true
   #tag: $(APPVEYOR_REPO_TAG_NAME) # will not work until tag is pushed
   #on:
