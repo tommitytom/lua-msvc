@@ -1,22 +1,22 @@
 version: 1.0.{build}
 image:
-	- Visual Studio 2017
-	- Visual Studio 2019
+- Visual Studio 2017
+- Visual Studio 2019
 environment:
-	matrix:
-		- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-			VS_VERSION: vs2019
-		- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-			VS_VERSION: vs2017
+  matrix:
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    VS_VERSION: vs2019
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+    VS_VERSION: vs2017
 clone_folder: c:\lua-msvc
 build_script:
-- cmd: >-
+  - cmd: >-
     cd c:\lua-msvc
     appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
     build.bat 5.3.5 x86
     build.bat 5.3.5 x64
 artifacts:
-	- path: build/lua-5.3.5-$(VS_VERSION)-x86
-		name: lua-5.3.5-$(VS_VERSION)-x86
-	- path: build/lua-5.3.5-$(VS_VERSION)-x64
-		name: lua-5.3.5-$(VS_VERSION)-x64
+  - path: build/lua-5.3.5-$(VS_VERSION)-x86
+    name: lua-5.3.5-$(VS_VERSION)-x86
+  - path: build/lua-5.3.5-$(VS_VERSION)-x64
+    name: lua-5.3.5-$(VS_VERSION)-x64
