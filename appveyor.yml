@@ -5,18 +5,14 @@ image:
 clone_folder: c:\lua-msvc
 build_script:
 - cmd: >-
-    cd c:\lua-msvc
-
     appveyor DownloadFile https://github.com/Microsoft/vswhere/releases/download/2.3.2/vswhere.exe
-
-    vsver.bat
 
     build.bat 5.3.5 x86
 
     build.bat 5.3.5 x64
 
 artifacts:
-  - path: build/lua-5.3.5-$(VS_VERSION)-x86
-    name: lua-5.3.5-$(VS_VERSION)-x86
-  - path: build/lua-5.3.5-$(VS_VERSION)-x64
-    name: lua-5.3.5-$(VS_VERSION)-x64
+  - path: build/lua-5.3.5-$(VSVER)-x86
+    name: lua-5.3.5-$(VSVER)-x86
+  - path: build/lua-5.3.5-$(VSVER)-x64
+    name: lua-5.3.5-$(VSVER)-x64
