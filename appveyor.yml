@@ -13,8 +13,8 @@ install:
 build_script:
 - cmd: >-
     vsver.bat
-    build.bat %APPVEYOR_REPO_BRANCH% x86
-    build.bat %APPVEYOR_REPO_BRANCH% x64
+    build.bat $(APPVEYOR_REPO_BRANCH) x86
+    build.bat $(APPVEYOR_REPO_BRANCH) x64
 artifacts:
   - path: build/lua-%APPVEYOR_REPO_BRANCH%-vs$(VS_VERSION)-x86
     name: lua-%APPVEYOR_REPO_BRANCH%-vs$(VS_VERSION)-x86
