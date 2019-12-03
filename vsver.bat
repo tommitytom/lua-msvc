@@ -4,6 +4,7 @@ FOR /F "tokens=1 usebackq" %%F IN (`vswhere.exe -property catalog_productLineVer
 CALL :TRIM %VS_VERSION% VS_VERSION
 
 echo "%VS_VERSION%"
+GOTO :EOF
 
 :TRIM
 SET %2=%1
